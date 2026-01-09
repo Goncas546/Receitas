@@ -4,19 +4,42 @@
   <meta charset="UTF-8">
   <title>Receitas da Turma</title>
   <link rel="stylesheet" href="style.css">
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <style>
+    .g_id_signin {
+      width: 50px !important;
+      height: 50px !important;
+    }
+  </style>
 </head>
 <body>
   <h1>🍽️ Receitas da Turma</h1>
 
-  <input type="text" id="filtroIngrediente" placeholder="Ingrediente">
-  <input type="number" id="filtroTempo" placeholder="Tempo máximo (min)">
-  <input type="text" id="filtroAlergenio" placeholder="Alergénio">
-  <button onclick="filtrarReceitas()">Pesquisar</button>
+  <div id="g_id_onload"
+       data-client_id="SEU_CLIENT_ID_AQUI"
+       data-callback="handleCredentialResponse">
+  </div>
+  <div class="g_id_signin" data-type="standard" data-size="large"></div>
+
+  <select id="filtroReceita" placeholder="Selecionar receita">
+    <option value="">-- Selecionar receita --</option>
+  </select>
+  <input type="date" id="filtroData" placeholder="Selecionar data">
+  <button onclick="filtrarReceitas()">Marcar</button>
 
   <ul id="listaReceitas"></ul>
 
   <a href="login.html">🔒 Área privada</a>
 
+  <script>
+    function handleCredentialResponse(response) {
+      console.log("Token JWT: " + response.credential);
+      // Aqui podes processar o login do Google
+    }
+
+    // Carregar receitas da API ao carregar a página
+    window.addEventListener('load', carregarReceitasAPI);
+  </script>
   <script src="app.js"></script>
 </body>
 </html>
