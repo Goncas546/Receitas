@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <title>Área Privada</title>
+</head>
+<body onload="verificarLogin()">
+  <h1>Área Privada</h1>
+
+  <h3>Adicionar Receita</h3>
+  <input id="nome" placeholder="Nome">
+  <input id="ingredientes" placeholder="Ingredientes (,)">
+  <input id="tempo" type="number" placeholder="Tempo (min)">
+  <input id="alergenios" placeholder="Alergénios">
+  <button onclick="adicionarReceita()">Adicionar</button>
+
+  <h3>Menu Semanal</h3>
+  <input id="dia" placeholder="Dia da semana">
+  <input id="receitaDia" placeholder="Receita">
+  <button onclick="adicionarMenu()">Adicionar ao menu</button>
+
+  <ul id="menu"></ul>
+
+  <button onclick="logout()">Logout</button>
+
+  <script src="app.js"></script>
+</body>
+</html>
