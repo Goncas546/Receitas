@@ -1,0 +1,197 @@
+{
+  "menu": {
+    "data-inicio": "2026-12-06",
+    "data-fim": "2026-12-12",
+    "descricao": "Titulo do Menu Semanal 1",
+    "public": true,
+    "author": "ddd",
+    "dias": [
+      {
+        "segunda": {
+          "almoco": "Sopa de Legumes",
+          "jantar": "Sopa de Legumes"
+        },
+        "terca": {
+          "almoco": "Bife de Peru com Arroz",
+          "jantar": "Salada Caesar"
+        },
+        "quarta": {
+          "almoco": "Feijoada Transmontana",
+          "jantar": "Omelete de Queijo e Fiambre"
+        },
+        "quinta": {
+          "almoco": "Massa à Bolonhesa",
+          "jantar": "Peixe Grelhado com Brócolos"
+        },
+        "sexta": {
+          "almoco": "Arroz de Pato",
+          "jantar": "Pizza Caseira"
+        },
+        "sabado": {
+          "almoco": "Frango Assado",
+          "jantar": "Hambúrguer Artesanal"
+        },
+        "domingo": {
+          "almoco": "Cozido à Portuguesa",
+          "jantar": "Torradas e Chá"
+        }
+      }
+    ]
+  },
+  "menu2": {
+    "data-inicio": "2026-12-06",
+    "data-fim": "2026-12-12",
+    "descricao": "Titulo do Menu Semanal 2",
+    "public": false,
+    "author": "ddd",
+    "dias": [
+      {
+        "segunda": {
+          "almoco": "Sopa de Legumes",
+          "jantar": "Sopa de Legumes"
+        },
+        "terca": {
+          "almoco": "Bife de Peru com Arroz",
+          "jantar": "Salada Caesar"
+        },
+        "quarta": {
+          "almoco": "Feijoada Transmontana",
+          "jantar": "Omelete de Queijo e Fiambre"
+        },
+        "quinta": {
+          "almoco": "Massa à Bolonhesa",
+          "jantar": "Peixe Grelhado com Brócolos"
+        },
+        "sexta": {
+          "almoco": "Arroz de Pato",
+          "jantar": "Pizza Caseira"
+        },
+        "sabado": {
+          "almoco": "Frango Assado",
+          "jantar": "Hambúrguer Artesanal"
+        },
+        "domingo": {
+          "almoco": "Cozido à Portuguesa",
+          "jantar": "Torradas e Chá"
+        }
+      }
+    ]
+  },
+  "menu3": {
+    "data-inicio": "2026-12-06",
+    "data-fim": "2026-12-12",
+    "descricao": "Titulo do Menu Semanal 3",
+    "public": false,
+    "author": "ddd",
+    "dias": [
+      {
+        "segunda": {
+          "almoco": "Sopa de Legumes",
+          "jantar": "Sopa de Legumes"
+        },
+        "terca": {
+          "almoco": "Bife de Peru com Arroz",
+          "jantar": "Salada Caesar"
+        },
+        "quarta": {
+          "almoco": "Feijoada Transmontana",
+          "jantar": "Omelete de Queijo e Fiambre"
+        },
+        "quinta": {
+          "almoco": "Massa à Bolonhesa",
+          "jantar": "Peixe Grelhado com Brócolos"
+        },
+        "sexta": {
+          "almoco": "Arroz de Pato",
+          "jantar": "Pizza Caseira"
+        },
+        "sabado": {
+          "almoco": "Frango Assado",
+          "jantar": "Hambúrguer Artesanal"
+        },
+        "domingo": {
+          "almoco": "Cozido à Portuguesa",
+          "jantar": "Torradas e Chá"
+        }
+      }
+    ]
+  },
+  "menu_1768344920014": {
+    "data-inicio": "2026-01-11",
+    "data-fim": "2026-01-17",
+    "descricao": "Menu 1",
+    "public": true,
+    "author": "imtwoz06@gmail.com",
+    "dias": [
+      {
+        "segunda": {
+          "almoco": "Comida",
+          "jantar": "Comida"
+        },
+        "terca": {
+          "almoco": "Comida",
+          "jantar": "Comida"
+        },
+        "quarta": {
+          "almoco": "Comida",
+          "jantar": "Comida"
+        },
+        "quinta": {
+          "almoco": "Comida",
+          "jantar": "Comida"
+        },
+        "sexta": {
+          "almoco": "Comida",
+          "jantar": "Comida"
+        },
+        "sabado": {
+          "almoco": "Comida",
+          "jantar": "Comida"
+        },
+        "domingo": {
+          "almoco": "Comida",
+          "jantar": "Comida"
+        }
+      }
+    ]
+  },
+  "menu_1768345092623": {
+    "data-inicio": "2026-01-11",
+    "data-fim": "2026-01-17",
+    "descricao": "Menu 2",
+    "public": false,
+    "author": "imtwoz06@gmail.com",
+    "dias": [
+      {
+        "segunda": {
+          "almoco": "Comida1",
+          "jantar": "Comida1"
+        },
+        "terca": {
+          "almoco": "Comida1",
+          "jantar": "Comida1"
+        },
+        "quarta": {
+          "almoco": "Comida",
+          "jantar": "Comida"
+        },
+        "quinta": {
+          "almoco": "Comida",
+          "jantar": "Comida"
+        },
+        "sexta": {
+          "almoco": "Comida",
+          "jantar": "Comida"
+        },
+        "sabado": {
+          "almoco": "Comida",
+          "jantar": "Comida"
+        },
+        "domingo": {
+          "almoco": "Comida",
+          "jantar": "Comida"
+        }
+      }
+    ]
+  }
+}
