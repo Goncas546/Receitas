@@ -440,6 +440,57 @@ input[type="checkbox"] {
   filter: brightness(1.1);
 }
 
+/* Botões uniformes e específico para Novo Menu */
+.btn {
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:8px 12px;
+  border-radius:10px;
+  border:1px solid rgba(255,255,255,0.04);
+  background: transparent;
+  color: var(--text-muted);
+  cursor:pointer;
+  font-weight:600;
+  transition: var(--transition);
+}
+.btn:hover{ background: rgba(255,255,255,0.03); color: var(--text-main); }
+
+#new-menu-btn{
+  padding:8px 12px;
+  border-radius:8px;
+  background: linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border:1px solid var(--glass-border);
+  color: var(--text-muted);
+  cursor:pointer;
+  font-weight:600;
+}
+#new-menu-btn:hover{ background: rgba(56,189,248,0.06); color: var(--text-main); border-color: rgba(56,189,248,0.15); }
+
+/* Botão de atualizar pequeno ao lado do título H3 */
+#lista-resultados h3 + #btn-recarregar,
+#lista-resultados h2 + #btn-recarregar {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: 12px;
+  padding: 6px 10px;
+  font-size: 0.9rem;
+  border-radius: 8px;
+  background: transparent;
+  border: 1px solid var(--glass-border);
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+#lista-resultados h3,
+#lista-resultados h2 { display: inline-block; vertical-align: middle; }
+
+#btn-recarregar i { font-size: 0.95rem; }
+
+#btn-recarregar:hover { background: rgba(56,189,248,0.06); color: var(--text-main); border-color: rgba(56,189,248,0.15); }
+
+
 /* Loading */
 #loading {
   text-align: center;

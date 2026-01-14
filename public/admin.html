@@ -44,15 +44,17 @@
                 <label>Data Início: <input type="date" id="data-inicio"></label>
                 <label>Data Fim: <input type="date" id="data-fim"></label>
                 <label>Publicar: <input type="checkbox" id="publicFlag"></label>
+                <button id="new-menu-btn" onclick="clearForm()" hidden="true"><i class="fa-solid fa-plus"></i> Novo Menu</button>
             </section>
 
             <div id="gridDias" class="grid-dias"></div>
 
             <h3>Sugestões de Receitas</h3>
-            <div id="recipe-suggestions" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;margin-top:8px;margin-bottom:8px"></div>
+            <button id="btn-recarregar" class="btn-recarregar" onclick="carregarSugestoes()"><i class="fa-solid fa-arrow-rotate-right"></i> Atualizar</button>
+            <div id="recipe-suggestions"></div>
 
             <div style="margin-top:12px">
-                <button class="btn-salvar" onclick="gravarMenu()">Gravar Menu</button>
+                <button id="btn-salvar" class="btn-salvar" onclick="gravarMenu()"><i class="fa-solid fa-plus"></i> Criar Menu</button>
             </div>
         </div>
     </div>

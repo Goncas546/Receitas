@@ -3,6 +3,14 @@ window.onload = function () {
   const diasSemana = ['segunda', 'terça', 'quarta', 'quinta', 'sexta', 'sábado', 'domingo'];
   let menusList = [];
 
+  const newBtn = document.getElementById('new-menu-btn');
+
+  newBtn.addEventListener('click', () => {
+    clearForm();
+    newBtn.hidden = true;
+    document.getElementById('btn-salvar').innerHTML = '<i class="fa-solid fa-plus"></i> Criar Menu';
+  });
+
   // NOVO: quando o user carrega um menu, guardamos a key para editar (UPDATE)
   let currentEditingKey = null;
 
@@ -112,8 +120,8 @@ window.onload = function () {
           return `<div class="recipe-card" style="background:#fff;padding:8px;border-radius:8px;box-shadow:0 6px 14px rgba(2,6,23,0.06);text-align:left">
                     <div style="height:100px;overflow:hidden">${img}</div>
                     <h4 style="margin:8px 0 6px 0;font-size:0.95rem">${title}</h4>
-                    <button onclick="addRecipeToPlan('${escapeAttr(r.title)}')"><i class="fa-solid fa-plus"></i> Adicionar</button>
-                    <a href="${escapeAttr(recipeUrl)}" target="_blank" style="text-decoration:none"><button><i class="fa-solid fa-arrow-up-right-from-square"></i> Ver Receita</button></a>
+                    <button onclick="event.stopPropagation(); addRecipeToPlan('${escapeAttr(r.title)}')"><i class="fa-solid fa-plus"></i> Adicionar</button>
+                    <a href="${escapeAttr(recipeUrl)}" target="_blank" style="text-decoration:none"><button onclick="event.stopPropagation();"><i class="fa-solid fa-arrow-up-right-from-square"></i> Ver Receita</button></a>
                   </div>`;
       }).join('');
 
@@ -191,6 +199,9 @@ window.onload = function () {
   function carregarMenu(key) {
     const item = menusList.find(m => m.key === key);
     if (!item) return;
+
+    document.getElementById('new-menu-btn').hidden = false;
+    document.getElementById('btn-salvar').innerHTML = '<i class="fa-solid fa-floppy-disk"></i> Atualizar Menu';
 
     currentEditingKey = key; // NOVO: agora "Gravar" fará UPDATE
 
@@ -310,4 +321,6 @@ window.onload = function () {
   window.apagarMenu = apagarMenu;
   window.logout = logout;
   window.addRecipeToPlan = addRecipeToPlan;
+  window.clearForm = clearForm;
+  window.carregarSugestoes = carregarSugestoes;
 };

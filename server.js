@@ -27,7 +27,7 @@ app.get('/api/sugestoes', async (req, res) => {
     }
 
     try {
-        const response = await fetch(`https://api.spoonacular.com/recipes/random?number=6&apiKey=${apiKey}`);
+        const response = await fetch(`https://api.spoonacular.com/recipes/random?number=5&apiKey=${apiKey}`);
         
         if (!response.ok) {
             throw new Error(`Erro API externa: ${response.statusText}`);

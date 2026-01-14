@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
         metaWrap.appendChild(h3);
 
         const meta = document.createElement('p');
-        meta.textContent = `${menuObj['data-inicio'] || ''} → ${menuObj['data-fim'] || ''} — Autor: ${menuObj.author || ''}`;
+        meta.textContent = `${menuObj['data-inicio'] || ''} → ${menuObj['data-fim'] || ''} ${menuObj.author || ''}`;
         metaWrap.appendChild(meta);
 
         card.appendChild(metaWrap);
@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const daysRow = document.createElement('div');
         daysRow.className = 'menu-days';
 
-        const order = ['segunda','terca','quarta','quinta','sexta','sabado','domingo'];
+        const order = ['segunda','terça','quarta','quinta','sexta','sábado','domingo'];
         order.forEach(d => {
           const info = diasObj[d] || {};
           const dayTile = document.createElement('div');
