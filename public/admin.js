@@ -137,7 +137,7 @@ window.onload = function () {
 
   // Adiciona o nome da receita à primeira refeição vazia do plano (almoco then jantar, por dia ordem)
   function addRecipeToPlan(name) {
-      const order = ['segunda','terca','quarta','quinta','sexta','sabado','domingo'];
+      const order = ['segunda','terça','quarta','quinta','sexta','sábado','domingo'];
       for (const dia of order) {
           const alm = document.getElementById(`${dia}-almoco`);
           if (alm && !alm.value) { alm.value = name; return; }
