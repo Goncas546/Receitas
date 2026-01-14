@@ -25,6 +25,7 @@ window.onload = function () {
   // Iniciar a aplicação
   gerarHTMLDias();
   carregarDadosServidor();
+  carregarSugestoes();
 
   // ===== VALIDAÇÃO OBRIGATÓRIA =====
   function validateFormOrAlert() {
@@ -93,6 +94,53 @@ window.onload = function () {
     container.innerHTML = html;
   }
 
+  async function carregarSugestoes() {
+    try {
+      const API_KEY = '82872ab9b342448aa4c956cd2c4d7f28';
+      const container = document.getElementById('recipe-suggestions');
+
+      container.innerHTML = '<em>Carregando sugestões...</em>';
+
+      response = await fetch(`https://api.spoonacular.com/recipes/random?number=6&apiKey=${API_KEY}`);
+      if (!response.ok) throw new Error('Erro ao buscar receitas');
+
+      const data = await response.json();
+      const list = data.recipes || [];
+      container.innerHTML = list.map(r => {
+          const title = escapeHtml(r.title || 'Receita');
+          const img = r.image ? `<img src="${r.image}" alt="${title}" style="width:100%;height:100px;object-fit:cover;border-radius:6px">` : '';
+      
+          return `<div class="recipe-card" style="background:#fff;padding:8px;border-radius:8px;box-shadow:0 6px 14px rgba(2,6,23,0.06);text-align:left"><div style="height:100px;overflow:hidden">${img}</div><h4 style="margin:8px 0 6px 0;font-size:0.95rem">${title}</h4><button onclick="addRecipeToPlan('${escapeAttr(r.title)}')">Adicionar</button></div>`;
+      }).join('');
+
+    } catch (err) {
+      console.error('Erro ao carregar sugestões:', err);
+    }
+  }
+
+  function escapeAttr(s) { return String(s).replace(/'/g, "\\'").replace(/\"/g,'\\\"'); }
+
+  function escapeHtml(str) {
+    return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+  }
+
+  // Adiciona o nome da receita à primeira refeição vazia do plano (almoco then jantar, por dia ordem)
+  function addRecipeToPlan(name) {
+      const order = ['segunda','terca','quarta','quinta','sexta','sabado','domingo'];
+      for (const dia of order) {
+          const alm = document.getElementById(`${dia}-almoco`);
+          if (alm && !alm.value) { alm.value = name; return; }
+          const jan = document.getElementById(`${dia}-jantar`);
+          if (jan && !jan.value) { jan.value = name; return; }
+      }
+      alert('Não há campos vazios no plano.');
+  }
+
   // --- 3. CARREGAR DADOS DO SERVIDOR (GET) ---
   async function carregarDadosServidor() {
     try {
@@ -105,7 +153,7 @@ window.onload = function () {
       if (dados && Array.isArray(dados.menus) && dados.menus.length) {
         menusList = dados.menus;
 
-        existingDiv.innerHTML = menusList.map(m => {
+          existingDiv.innerHTML = menusList.map(m => {
           // 1. Define o título (Tenta descrição -> Tenta título -> Fallback)
           const nomeMenu = (m.menu && m.menu.descricao) 
               ? m.menu.descricao 
@@ -116,7 +164,7 @@ window.onload = function () {
               <strong style="font-size: 0.95rem;">${nomeMenu}</strong>
               
               <div style="display:flex; gap: 8px;">
-              <button onclick="carregarMenu('${m.key}')">Editar</button>
+                <button onclick="carregarMenu('${m.key}')">Editar</button>
                 <button onclick="apagarMenu('${m.key}')" style="color:#f87171">Apagar</button>
               </div>
             </div>`;
@@ -257,4 +305,5 @@ window.onload = function () {
   window.carregarMenu = carregarMenu;
   window.apagarMenu = apagarMenu;
   window.logout = logout;
+  window.addRecipeToPlan = addRecipeToPlan;
 };
