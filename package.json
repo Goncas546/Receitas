@@ -6,7 +6,7 @@
     "dev": "node server.js",
     "start": "node server.js"
   },
-  "name": "receitas-joao",
+  "name": "receitas",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
