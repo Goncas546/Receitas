@@ -1,4 +1,3 @@
-// server.js
 const express = require('express');
 const path = require('path');
 const { createFileStore } = require('./storage/fileStore');
@@ -37,7 +36,7 @@ app.post('/api/menu', async (req, res) => {
     const body = req.body || {};
     const email = body.email;
     const menuSemanal = body.menuSemanal;
-    const descricao = body.descricao || '';
+    const titulo = body.titulo || '';
     const dataInicio = body['data-inicio'] || body.dataInicio || '';
     const dataFim = body['data-fim'] || body.dataFim || '';
     const isPublic = (body.public === true) || (body.public === 'true');
@@ -49,7 +48,7 @@ app.post('/api/menu', async (req, res) => {
     const created = await store.createMenu({
       email,
       menuSemanal,
-      descricao,
+      titulo,
       dataInicio,
       dataFim,
       isPublic
@@ -69,7 +68,7 @@ app.put('/api/menu/:key', async (req, res) => {
     const body = req.body || {};
     const email = body.email;
     const menuSemanal = body.menuSemanal;
-    const descricao = body.descricao || '';
+    const titulo = body.titulo || '';
     const dataInicio = body['data-inicio'] || body.dataInicio || '';
     const dataFim = body['data-fim'] || body.dataFim || '';
     const isPublic = (body.public === true) || (body.public === 'true');
@@ -82,7 +81,7 @@ app.put('/api/menu/:key', async (req, res) => {
       key,
       email,
       menuSemanal,
-      descricao,
+      titulo,
       dataInicio,
       dataFim,
       isPublic

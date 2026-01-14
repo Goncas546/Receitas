@@ -1,4 +1,3 @@
-// storage/fileStore.js
 const fs = require('fs');
 const path = require('path');
 
@@ -56,13 +55,13 @@ function createFileStore({ filePath }) {
     return found;
   }
 
-  async function createMenu({ email, menuSemanal, descricao, dataInicio, dataFim, isPublic }) {
+  async function createMenu({ email, menuSemanal, titulo, dataInicio, dataFim, isPublic }) {
     const key = `menu_${Date.now()}`;
 
     db[key] = {
       "data-inicio": dataInicio || '',
       "data-fim": dataFim || '',
-      descricao: descricao || '',
+      titulo: titulo || '',
       public: !!isPublic,
       author: email,
       dias: [menuSemanal]
@@ -72,7 +71,7 @@ function createFileStore({ filePath }) {
     return { key, menu: db[key] };
   }
 
-  async function updateMenu({ key, email, menuSemanal, descricao, dataInicio, dataFim, isPublic }) {
+  async function updateMenu({ key, email, menuSemanal, titulo, dataInicio, dataFim, isPublic }) {
     if (!db[key]) {
       const err = new Error('Menu não encontrado');
       err.status = 404;
@@ -91,7 +90,7 @@ function createFileStore({ filePath }) {
     db[key] = {
       "data-inicio": dataInicio || '',
       "data-fim": dataFim || '',
-      descricao: descricao || '',
+      titulo: titulo || '',
       public: !!isPublic,
       author: email,
       dias: [menuSemanal]

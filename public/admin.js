@@ -1,6 +1,6 @@
 window.onload = function () {
   // Lista de dias para gerar o HTML automaticamente
-  const diasSemana = ['segunda', 'terca', 'quarta', 'quinta', 'sexta', 'sabado', 'domingo'];
+  const diasSemana = ['segunda', 'terça', 'quarta', 'quinta', 'sexta', 'sábado', 'domingo'];
   let menusList = [];
 
   // NOVO: quando o user carrega um menu, guardamos a key para editar (UPDATE)
@@ -32,11 +32,11 @@ window.onload = function () {
 
     const dataInicio = (document.getElementById('data-inicio').value || '').trim();
     const dataFim = (document.getElementById('data-fim').value || '').trim();
-    const descricao = (document.getElementById('descricao').value || '').trim();
+    const titulo = (document.getElementById('titulo').value || '').trim();
 
     if (!dataInicio) missing.push('Data de início');
     if (!dataFim) missing.push('Data de fim');
-    if (!descricao) missing.push('Descrição');
+    if (!titulo) missing.push('Titulo');
 
     diasSemana.forEach(dia => {
       const alm = (document.getElementById(`${dia}-almoco`).value || '').trim();
@@ -56,7 +56,7 @@ window.onload = function () {
   function clearForm() {
     document.getElementById('data-inicio').value = '';
     document.getElementById('data-fim').value = '';
-    document.getElementById('descricao').value = '';
+    document.getElementById('titulo').value = '';
     document.getElementById('publicFlag').checked = false;
 
     diasSemana.forEach(dia => {
@@ -145,7 +145,7 @@ window.onload = function () {
     const menu = item.menu;
     document.getElementById('data-inicio').value = menu['data-inicio'] || '';
     document.getElementById('data-fim').value = menu['data-fim'] || '';
-    document.getElementById('descricao').value = menu.descricao || '';
+    document.getElementById('titulo').value = menu.titulo || '';
     document.getElementById('publicFlag').checked = !!menu.public;
 
     const menuSemanal = (menu.dias && menu.dias[0]) ? menu.dias[0] : null;
@@ -203,7 +203,7 @@ window.onload = function () {
 
     const dataInicio = document.getElementById('data-inicio').value.trim();
     const dataFim = document.getElementById('data-fim').value.trim();
-    const descricao = document.getElementById('descricao').value.trim();
+    const titulo = document.getElementById('titulo').value.trim();
     const publicFlag = document.getElementById('publicFlag').checked;
 
     // NOVO: decide CREATE vs UPDATE
@@ -220,7 +220,7 @@ window.onload = function () {
         body: JSON.stringify({
           email: email,
           menuSemanal: novoMenu,
-          descricao: descricao,
+          titulo: titulo,
           'data-inicio': dataInicio,
           'data-fim': dataFim,
           public: publicFlag
