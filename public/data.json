@@ -1,0 +1,470 @@
+{
+  "menu": {
+    "data-inicio": "2026-12-06",
+    "data-fim": "2026-12-12",
+    "descricao": "Titulo do Menu Semanal 1",
+    "public": true,
+    "author": "ddd",
+    "dias": [
+      {
+        "segunda": {
+          "almoco": "Sopa de Legumes",
+          "jantar": "Sopa de Legumes"
+        },
+        "terca": {
+          "almoco": "Bife de Peru com Arroz",
+          "jantar": "Salada Caesar"
+        },
+        "quarta": {
+          "almoco": "Feijoada Transmontana",
+          "jantar": "Omelete de Queijo e Fiambre"
+        },
+        "quinta": {
+          "almoco": "Massa à Bolonhesa",
+          "jantar": "Peixe Grelhado com Brócolos"
+        },
+        "sexta": {
+          "almoco": "Arroz de Pato",
+          "jantar": "Pizza Caseira"
+        },
+        "sabado": {
+          "almoco": "Frango Assado",
+          "jantar": "Hambúrguer Artesanal"
+        },
+        "domingo": {
+          "almoco": "Cozido à Portuguesa",
+          "jantar": "Torradas e Chá"
+        }
+      }
+    ]
+  },
+  "menu2": {
+    "data-inicio": "2026-12-06",
+    "data-fim": "2026-12-12",
+    "descricao": "Titulo do Menu Semanal 2",
+    "public": false,
+    "author": "ddd",
+    "dias": [
+      {
+        "segunda": {
+          "almoco": "Sopa de Legumes",
+          "jantar": "Sopa de Legumes"
+        },
+        "terca": {
+          "almoco": "Bife de Peru com Arroz",
+          "jantar": "Salada Caesar"
+        },
+        "quarta": {
+          "almoco": "Feijoada Transmontana",
+          "jantar": "Omelete de Queijo e Fiambre"
+        },
+        "quinta": {
+          "almoco": "Massa à Bolonhesa",
+          "jantar": "Peixe Grelhado com Brócolos"
+        },
+        "sexta": {
+          "almoco": "Arroz de Pato",
+          "jantar": "Pizza Caseira"
+        },
+        "sabado": {
+          "almoco": "Frango Assado",
+          "jantar": "Hambúrguer Artesanal"
+        },
+        "domingo": {
+          "almoco": "Cozido à Portuguesa",
+          "jantar": "Torradas e Chá"
+        }
+      }
+    ]
+  },
+  "menu3": {
+    "data-inicio": "2026-12-06",
+    "data-fim": "2026-12-12",
+    "descricao": "Titulo do Menu Semanal 3",
+    "public": false,
+    "author": "ddd",
+    "dias": [
+      {
+        "segunda": {
+          "almoco": "Sopa de Legumes",
+          "jantar": "Sopa de Legumes"
+        },
+        "terca": {
+          "almoco": "Bife de Peru com Arroz",
+          "jantar": "Salada Caesar"
+        },
+        "quarta": {
+          "almoco": "Feijoada Transmontana",
+          "jantar": "Omelete de Queijo e Fiambre"
+        },
+        "quinta": {
+          "almoco": "Massa à Bolonhesa",
+          "jantar": "Peixe Grelhado com Brócolos"
+        },
+        "sexta": {
+          "almoco": "Arroz de Pato",
+          "jantar": "Pizza Caseira"
+        },
+        "sabado": {
+          "almoco": "Frango Assado",
+          "jantar": "Hambúrguer Artesanal"
+        },
+        "domingo": {
+          "almoco": "Cozido à Portuguesa",
+          "jantar": "Torradas e Chá"
+        }
+      }
+    ]
+  },
+  "menu_1768344920014": {
+    "data-inicio": "2026-01-11",
+    "data-fim": "2026-01-17",
+    "descricao": "Menu 1",
+    "public": true,
+    "author": "imtwoz06@gmail.com",
+    "dias": [
+      {
+        "segunda": {
+          "almoco": "Comida",
+          "jantar": "Comida"
+        },
+        "terca": {
+          "almoco": "Comida",
+          "jantar": "Comida"
+        },
+        "quarta": {
+          "almoco": "Comida",
+          "jantar": "Comida"
+        },
+        "quinta": {
+          "almoco": "Comida",
+          "jantar": "Comida"
+        },
+        "sexta": {
+          "almoco": "Comida",
+          "jantar": "Comida"
+        },
+        "sabado": {
+          "almoco": "Comida",
+          "jantar": "Comida"
+        },
+        "domingo": {
+          "almoco": "Comida",
+          "jantar": "Comida"
+        }
+      }
+    ]
+  },
+  "menu_1768345092623": {
+    "data-inicio": "2026-01-11",
+    "data-fim": "2026-01-17",
+    "descricao": "Menu 2",
+    "public": false,
+    "author": "imtwoz06@gmail.com",
+    "dias": [
+      {
+        "segunda": {
+          "almoco": "Comida1",
+          "jantar": "Comida1"
+        },
+        "terca": {
+          "almoco": "Comida1",
+          "jantar": "Comida1"
+        },
+        "quarta": {
+          "almoco": "Comida",
+          "jantar": "Comida"
+        },
+        "quinta": {
+          "almoco": "Comida",
+          "jantar": "Comida"
+        },
+        "sexta": {
+          "almoco": "Comida",
+          "jantar": "Comida"
+        },
+        "sabado": {
+          "almoco": "Comida",
+          "jantar": "Comida"
+        },
+        "domingo": {
+          "almoco": "Comida",
+          "jantar": "Comida"
+        }
+      }
+    ]
+  },
+  "menu_1768353897437": {
+    "data-inicio": "",
+    "data-fim": "",
+    "descricao": "TESTE",
+    "public": true,
+    "author": "goncalosousatablet@gmail.com",
+    "dias": [
+      {
+        "segunda": {
+          "almoco": "TESTE",
+          "jantar": "TESTE"
+        },
+        "terca": {
+          "almoco": "TESTE",
+          "jantar": "TESTE"
+        },
+        "quarta": {
+          "almoco": "TESTE",
+          "jantar": "TESTE"
+        },
+        "quinta": {
+          "almoco": "TESTE",
+          "jantar": "TESTE"
+        },
+        "sexta": {
+          "almoco": "TESTE",
+          "jantar": "TESTE"
+        },
+        "sabado": {
+          "almoco": "TESTE",
+          "jantar": "TESTE"
+        },
+        "domingo": {
+          "almoco": "TESTE",
+          "jantar": "TESTE"
+        }
+      }
+    ]
+  },
+  "menu_1768353946548": {
+    "data-inicio": "2026-01-14",
+    "data-fim": "2026-01-22",
+    "descricao": "TESTE",
+    "public": true,
+    "author": "goncalosousatablet@gmail.com",
+    "dias": [
+      {
+        "segunda": {
+          "almoco": "TESTE",
+          "jantar": "TESTE"
+        },
+        "terca": {
+          "almoco": "TESTE",
+          "jantar": "TESTE"
+        },
+        "quarta": {
+          "almoco": "TESTE",
+          "jantar": "TESTE"
+        },
+        "quinta": {
+          "almoco": "TESTE",
+          "jantar": "TESTE"
+        },
+        "sexta": {
+          "almoco": "TESTE",
+          "jantar": "TESTE"
+        },
+        "sabado": {
+          "almoco": "TESTE",
+          "jantar": "TESTE"
+        },
+        "domingo": {
+          "almoco": "TESTE",
+          "jantar": "90 Second Cookie in a Bowl"
+        }
+      }
+    ]
+  },
+  "menu_1768355066705": {
+    "data-inicio": "2026-01-14",
+    "data-fim": "2026-01-27",
+    "descricao": "TESTE2",
+    "public": false,
+    "author": "goncalosousatablet@gmail.com",
+    "dias": [
+      {
+        "segunda": {
+          "almoco": "TESTE",
+          "jantar": "TESTE"
+        },
+        "terca": {
+          "almoco": "TESTE",
+          "jantar": "TESTE"
+        },
+        "quarta": {
+          "almoco": "TESTE",
+          "jantar": "TESTE"
+        },
+        "quinta": {
+          "almoco": "TESTE",
+          "jantar": "TESTE"
+        },
+        "sexta": {
+          "almoco": "TESTE",
+          "jantar": "TESTE"
+        },
+        "sabado": {
+          "almoco": "TESTE",
+          "jantar": "TESTE"
+        },
+        "domingo": {
+          "almoco": "TESTE",
+          "jantar": "TESTE"
+        }
+      }
+    ]
+  },
+  "menu_1768356135192": {
+    "data-inicio": "2026-01-14",
+    "data-fim": "2026-01-21",
+    "descricao": "A",
+    "public": true,
+    "author": "goncalosousatablet@gmail.com",
+    "dias": [
+      {
+        "segunda": {
+          "almoco": "A",
+          "jantar": "A"
+        },
+        "terca": {
+          "almoco": "A",
+          "jantar": "A"
+        },
+        "quarta": {
+          "almoco": "A",
+          "jantar": "A"
+        },
+        "quinta": {
+          "almoco": "A",
+          "jantar": "A"
+        },
+        "sexta": {
+          "almoco": "A",
+          "jantar": "A"
+        },
+        "sabado": {
+          "almoco": "A",
+          "jantar": "A"
+        },
+        "domingo": {
+          "almoco": "A",
+          "jantar": "A"
+        }
+      }
+    ]
+  },
+  "menu_1768356334683": {
+    "data-inicio": "2025-12-31",
+    "data-fim": "2026-01-21",
+    "descricao": "TESTE",
+    "public": true,
+    "author": "goncalosousatablet@gmail.com",
+    "dias": [
+      {
+        "segunda": {
+          "almoco": "TESTE",
+          "jantar": "TESTE"
+        },
+        "terca": {
+          "almoco": "TESTE",
+          "jantar": "TESTE"
+        },
+        "quarta": {
+          "almoco": "TESTE",
+          "jantar": "TESTE"
+        },
+        "quinta": {
+          "almoco": "TESTE",
+          "jantar": "TESTE"
+        },
+        "sexta": {
+          "almoco": "TESTE",
+          "jantar": "TESTE"
+        },
+        "sabado": {
+          "almoco": "TESTE",
+          "jantar": "TESTE"
+        },
+        "domingo": {
+          "almoco": "TESTE",
+          "jantar": "TESTE"
+        }
+      }
+    ]
+  },
+  "menu_1768356527242": {
+    "data-inicio": "2026-01-14",
+    "data-fim": "2026-01-28",
+    "descricao": "b",
+    "public": false,
+    "author": "goncalosousatablet@gmail.com",
+    "dias": [
+      {
+        "segunda": {
+          "almoco": "b",
+          "jantar": "b"
+        },
+        "terca": {
+          "almoco": "b",
+          "jantar": "b"
+        },
+        "quarta": {
+          "almoco": "b",
+          "jantar": "b"
+        },
+        "quinta": {
+          "almoco": "b",
+          "jantar": "b"
+        },
+        "sexta": {
+          "almoco": "b",
+          "jantar": "b"
+        },
+        "sabado": {
+          "almoco": "b",
+          "jantar": "b"
+        },
+        "domingo": {
+          "almoco": "b",
+          "jantar": "2"
+        }
+      }
+    ]
+  },
+  "menu_1768357224197": {
+    "data-inicio": "2026-01-14",
+    "data-fim": "2026-01-28",
+    "descricao": "C",
+    "public": true,
+    "author": "goncalosousatablet@gmail.com",
+    "dias": [
+      {
+        "segunda": {
+          "almoco": "C",
+          "jantar": "C"
+        },
+        "terca": {
+          "almoco": "C",
+          "jantar": "C"
+        },
+        "quarta": {
+          "almoco": "C",
+          "jantar": "C"
+        },
+        "quinta": {
+          "almoco": "C",
+          "jantar": "C"
+        },
+        "sexta": {
+          "almoco": "C",
+          "jantar": "CC"
+        },
+        "sabado": {
+          "almoco": "C",
+          "jantar": "C"
+        },
+        "domingo": {
+          "almoco": "C",
+          "jantar": "C"
+        }
+      }
+    ]
+  }
+}
