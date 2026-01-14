@@ -108,9 +108,15 @@ window.onload = function () {
       const list = data.recipes || [];
       container.innerHTML = list.map(r => {
           const title = escapeHtml(r.title || 'Receita');
+          const recipeUrl = r.spoonacularSourceUrl || "#";
           const img = r.image ? `<img src="${r.image}" alt="${title}" style="width:100%;height:100px;object-fit:cover;border-radius:6px">` : '';
-      
-          return `<div class="recipe-card" style="background:#fff;padding:8px;border-radius:8px;box-shadow:0 6px 14px rgba(2,6,23,0.06);text-align:left"><div style="height:100px;overflow:hidden">${img}</div><h4 style="margin:8px 0 6px 0;font-size:0.95rem">${title}</h4><button onclick="addRecipeToPlan('${escapeAttr(r.title)}')">Adicionar</button></div>`;
+       
+          return `<div class="recipe-card" style="background:#fff;padding:8px;border-radius:8px;box-shadow:0 6px 14px rgba(2,6,23,0.06);text-align:left">
+                    <div style="height:100px;overflow:hidden">${img}</div>
+                    <h4 style="margin:8px 0 6px 0;font-size:0.95rem">${title}</h4>
+                    <button onclick="addRecipeToPlan('${escapeAttr(r.title)}')"><i class="fa-solid fa-plus"></i> Adicionar</button>
+                    <a href="${escapeAttr(recipeUrl)}" target="_blank" style="text-decoration:none"><button><i class="fa-solid fa-arrow-up-right-from-square"></i> Ver Receita</button></a>
+                  </div>`;
       }).join('');
 
     } catch (err) {

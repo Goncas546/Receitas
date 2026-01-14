@@ -576,12 +576,6 @@ input[type="checkbox"] {
   box-shadow: 0 0 10px rgba(56, 189, 248, 0.4);
 }
 
-.recipe-card button::before {
-  content: '+'; /* Ícone visual */
-  font-size: 1.1em;
-  font-weight: bold;
-}
-
 /* Mobile Pequeno */
 @media (max-width: 480px) {
   .menu-days, 
