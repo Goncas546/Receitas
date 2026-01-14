@@ -106,12 +106,19 @@ window.onload = function () {
         menusList = dados.menus;
 
         existingDiv.innerHTML = menusList.map(m => {
-          const desc = m.menu && m.menu.descricao ? ` — ${m.menu.descricao}` : '';
+          // 1. Define o título (Tenta descrição -> Tenta título -> Fallback)
+          const nomeMenu = (m.menu && m.menu.descricao) 
+              ? m.menu.descricao 
+              : (m.menu && m.menu.titulo ? m.menu.titulo : 'Menu Sem Nome');
+
           return `
             <div id="item-${m.key}" class="existing-item" style="margin-bottom:6px">
-              <strong>${m.key}</strong>${desc}
+              <strong style="font-size: 0.95rem;">${nomeMenu}</strong>
+              
+              <div style="display:flex; gap: 8px;">
               <button onclick="carregarMenu('${m.key}')">Editar</button>
-              <button onclick="apagarMenu('${m.key}')" style="color:#b91c1c">Apagar</button>
+                <button onclick="apagarMenu('${m.key}')" style="color:#f87171">Apagar</button>
+              </div>
             </div>`;
         }).join('');
       } else {

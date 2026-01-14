@@ -24,13 +24,18 @@ document.addEventListener('DOMContentLoaded', () => {
         const card = document.createElement('section');
         card.className = 'menu-card';
 
+        const metaWrap = document.createElement('div');
+        metaWrap.className = 'menu-meta';
+
         const h3 = document.createElement('h3');
-        h3.textContent = menuObj.descricao || key;
-        card.appendChild(h3);
+        h3.textContent = menuObj.titulo || key;
+        metaWrap.appendChild(h3);
 
         const meta = document.createElement('p');
         meta.textContent = `${menuObj['data-inicio'] || ''} → ${menuObj['data-fim'] || ''} — Autor: ${menuObj.author || ''}`;
-        card.appendChild(meta);
+        metaWrap.appendChild(meta);
+
+        card.appendChild(metaWrap);
 
         const diasObj = (menuObj.dias && menuObj.dias[0]) ? menuObj.dias[0] : {};
 

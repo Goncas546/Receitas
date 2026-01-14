@@ -1,0 +1,599 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+  /* Cores de Fundo (Dark Theme Profundo) */
+  --bg-body: #0b1120;       /* Azul muito escuro, quase preto */
+  --bg-surface: #151e32;    /* Cor dos cartões base */
+  --bg-surface-2: #1e293b;  /* Cor dos inputs/elementos secundários */
+
+  /* Cores de Texto */
+  --text-main: #f1f5f9;
+  --text-muted: #94a3b8;
+  --text-light: #cbd5e1;
+
+  /* Acentos / Cores de Destaque */
+  --primary: #38bdf8;       /* Azul céu para ações principais */
+  --accent: #f472b6;        /* Rosa suave para detalhes */
+  --success: #34d399;       /* Verde para sucesso */
+  --danger: #f87171;        /* Vermelho para apagar/erros */
+  
+  /* Efeitos */
+  --glass: rgba(30, 41, 59, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.1);
+  --radius: 16px;
+  --transition: all 0.25s ease-in-out;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background-color: var(--bg-body);
+  /* Gradiente subtil de fundo para dar vida */
+  background-image: 
+    radial-gradient(at 0% 0%, rgba(56, 189, 248, 0.1) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, rgba(244, 114, 182, 0.05) 0px, transparent 50%);
+  background-attachment: fixed;
+  color: var(--text-main);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* --- HEADER --- */
+header {
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 16px 24px;
+  
+  /* Efeito de Vidro (Glassmorphism) */
+  background: var(--glass);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+  
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  position: sticky;
+  top: 20px;
+  z-index: 100;
+}
+
+/* Título */
+header h1 {
+  margin: 0;
+  font-weight: 700;
+  font-size: 1.25rem;
+  background: linear-gradient(90deg, #fff, #cbd5e1);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: -0.5px;
+}
+
+/* Perfil e Login */
+header .perfil-topo {
+  order: 1; /* Mantendo a tua estrutura lógica */
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex: 1;
+  justify-content: flex-end; /* Empurra para a direita */
+}
+
+/* Se existir conteúdo no meio, ajusta o layout */
+header .perfil-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-right: auto; /* Se quiseres o perfil à esquerda do botão sair */
+}
+
+header .login {
+  order: 2;
+  margin-left: 0;
+}
+
+.foto-user {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--primary);
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.2);
+}
+
+#txtNome {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-main);
+}
+#txtEmail {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.btn-logout {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--glass-border);
+  color: var(--text-light);
+  padding: 8px 16px;
+  border-radius: 99px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: var(--transition);
+}
+
+.btn-logout:hover {
+  background: rgba(248, 113, 113, 0.15); /* Vermelho suave */
+  color: #fca5a5;
+  border-color: rgba(248, 113, 113, 0.3);
+}
+
+hr {
+  border: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--glass-border), transparent);
+  margin: 30px 0;
+}
+
+/* --- CONTAINER PRINCIPAL --- */
+#lista-resultados {
+  max-width: 1200px;
+  margin: 0 auto 40px;
+  padding: 0 20px;
+}
+
+h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+h3 {
+  font-size: 1.1rem;
+  color: var(--text-light);
+  margin: 20px 0 12px;
+  font-weight: 600;
+}
+
+/* --- CARDS DE MENU PÚBLICO (app.js) --- */
+.menu-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius);
+  padding: 24px;
+  margin-bottom: 20px;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+  
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Layout Desktop para o card */
+@media (min-width: 900px) {
+  .menu-card {
+    display: grid;
+    grid-template-columns: 250px 1fr; /* Coluna meta fixa, dias flex */
+    align-items: start;
+  }
+}
+
+.menu-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: rgba(56, 189, 248, 0.3); /* Brilho azul suave */
+}
+
+.menu-meta h3 {
+  color: var(--primary);
+  font-size: 1.2rem;
+  margin: 0 0 8px 0;
+}
+
+.menu-meta p {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Grelha dos dias (Visualização) */
+.menu-days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+}
+
+.day-tile {
+  background: var(--bg-surface-2);
+  border-radius: 8px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.85rem;
+  border: 1px solid transparent;
+  transition: var(--transition);
+}
+
+.day-tile:hover {
+  background: rgba(56, 189, 248, 0.05);
+  border-color: rgba(56, 189, 248, 0.2);
+}
+
+.day-name {
+  color: var(--text-light);
+  font-weight: 700;
+  text-transform: capitalize;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  padding-bottom: 4px;
+  margin-bottom: 2px;
+}
+
+.meal {
+  color: var(--text-muted);
+  line-height: 1.3;
+}
+.meal strong {
+  color: var(--primary); /* Destaque "Almoço/Jantar" */
+  font-weight: 600;
+}
+
+/* --- ADMIN PANEL --- */
+
+/* Lista de Menus Existentes */
+#existing-menus {
+  display: grid;
+  gap: 10px;
+}
+
+.existing-item {
+  background: var(--bg-surface-2);
+  padding: 12px 16px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid var(--glass-border);
+}
+
+.existing-item strong {
+  color: var(--text-main);
+}
+
+.existing-item button {
+  margin-left: 8px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: none;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.existing-item button:first-of-type { /* Editar */
+  background: rgba(56, 189, 248, 0.15);
+  color: var(--primary);
+}
+.existing-item button:first-of-type:hover {
+  background: var(--primary);
+  color: #000;
+}
+
+.existing-item button:last-of-type { /* Apagar */
+  background: rgba(248, 113, 113, 0.15);
+  color: var(--danger);
+}
+.existing-item button:last-of-type:hover {
+  background: var(--danger);
+  color: #fff;
+}
+
+/* Formulário de Meta Dados */
+.meta-form {
+  background: var(--bg-surface);
+  border: 1px solid var(--glass-border);
+  padding: 24px;
+  border-radius: var(--radius);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.meta-form label {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  font-weight: 500;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Inputs Gerais */
+input[type="text"],
+input[type="date"] {
+  width: 100%;
+  background: var(--bg-body);
+  border: 1px solid var(--glass-border);
+  padding: 10px 14px;
+  border-radius: 8px;
+  color: var(--text-main);
+  font-family: inherit;
+  transition: var(--transition);
+}
+
+input[type="text"]:focus,
+input[type="date"]:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.15);
+}
+
+/* Checkbox */
+input[type="checkbox"] {
+  accent-color: var(--primary);
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+}
+
+/* --- GRID DE EDIÇÃO (ADMIN) --- */
+.grid-dias {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr); /* 7 Colunas em ecrãs grandes */
+  gap: 12px;
+}
+
+.dia-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--glass-border);
+  padding: 16px;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.dia-card h3 {
+  margin: 0 0 8px 0;
+  font-size: 1rem;
+  text-align: center;
+  color: var(--primary);
+  text-transform: capitalize;
+}
+
+.refeicao-grupo {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.refeicao-grupo label {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Input pequeno dentro do dia */
+.refeicao-grupo input {
+  background: var(--bg-surface-2);
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 6px;
+  padding: 8px;
+  color: #fff;
+  font-size: 0.85rem;
+  width: 100%;
+}
+.refeicao-grupo input:focus {
+  background: var(--bg-body);
+  border-color: var(--accent);
+  outline: none;
+}
+
+/* Botão Salvar */
+.btn-salvar {
+  display: block;
+  width: 100%;
+  max-width: 300px;
+  margin: 30px auto 0;
+  background: linear-gradient(135deg, var(--primary), #0ea5e9);
+  color: #fff;
+  font-weight: 700;
+  padding: 14px 24px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 1rem;
+  box-shadow: 0 4px 12px rgba(56, 189, 248, 0.3);
+  transition: var(--transition);
+}
+
+.btn-salvar:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(56, 189, 248, 0.5);
+  filter: brightness(1.1);
+}
+
+/* Loading */
+#loading {
+  text-align: center;
+  padding: 40px;
+  color: var(--text-muted);
+  font-style: italic;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { opacity: 0.6; }
+  50% { opacity: 1; }
+  100% { opacity: 0.6; }
+}
+
+/* --- RESPONSIVIDADE --- */
+
+/* Tablets */
+@media (max-width: 1024px) {
+  .menu-days {
+    grid-template-columns: repeat(4, 1fr); /* 4 colunas */
+  }
+  .grid-dias {
+    grid-template-columns: repeat(3, 1fr); /* Admin: 3 colunas */
+  }
+}
+
+/* Mobile Grande */
+@media (max-width: 768px) {
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  
+  header .perfil-topo {
+    width: 100%;
+    justify-content: space-between;
+  }
+  
+  .menu-card {
+    grid-template-columns: 1fr;
+  }
+  
+  .menu-days {
+    grid-template-columns: repeat(2, 1fr); /* 2 colunas */
+  }
+  
+  .grid-dias {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* --- SUGESTÕES DE RECEITAS (API) --- */
+
+/* Grelha de sugestões */
+#recipe-suggestions {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+  margin-top: 16px;
+}
+
+/* O Cartão da Receita */
+.recipe-card {
+  background: var(--bg-surface-2) !important; /* Garante fundo escuro */
+  border: 1px solid var(--glass-border);
+  border-radius: 12px !important;
+  padding: 12px !important;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: var(--transition);
+  box-shadow: var(--shadow-sm) !important;
+  height: 100%;
+}
+
+.recipe-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(56, 189, 248, 0.3);
+  box-shadow: var(--shadow-lg) !important;
+}
+
+/* Imagem da Receita */
+.recipe-card div:first-child {
+  height: 120px !important;
+  overflow: hidden;
+  border-radius: 8px;
+  position: relative;
+}
+
+.recipe-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.recipe-card:hover img {
+  transform: scale(1.05); /* Zoom suave na imagem ao passar o rato */
+}
+
+/* Título */
+.recipe-card h4 {
+  margin: 0;
+  font-size: 0.95rem !important;
+  color: var(--text-main) !important;
+  font-weight: 600;
+  line-height: 1.4;
+  flex-grow: 1; /* Empurra o botão para o fundo se o título for curto */
+}
+
+/* Botão Adicionar */
+.recipe-card button {
+  background: rgba(56, 189, 248, 0.1);
+  color: var(--primary);
+  border: 1px solid var(--glass-border);
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 600;
+  width: 100%;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.recipe-card button:hover {
+  background: var(--primary);
+  color: #0b1120; /* Texto escuro no hover para contraste */
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.4);
+}
+
+.recipe-card button::before {
+  content: '+'; /* Ícone visual */
+  font-size: 1.1em;
+  font-weight: bold;
+}
+
+/* Mobile Pequeno */
+@media (max-width: 480px) {
+  .menu-days, 
+  .grid-dias {
+    grid-template-columns: 1fr; /* 1 Coluna (pilha vertical) */
+  }
+  
+  .meta-form {
+    grid-template-columns: 1fr;
+  }
+  
+  header h1 {
+    font-size: 1.1rem;
+  }
+}

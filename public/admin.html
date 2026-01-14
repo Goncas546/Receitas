@@ -5,6 +5,7 @@
     <title>Receitas Públicas - Pesquisa</title>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
     <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
 <body>
@@ -30,20 +31,21 @@
     <hr>
 
     <div id="lista-resultados">
-        <h2>Administração — Menu Semanal</h2>
+        <h2>Os Meus Menus</h2>
 
         <div id="loading">A carregar dados...</div>
 
         <div id="conteudo-privado" style="display:none">
             <div id="existing-menus" style="margin-bottom:12px"></div>
+
+            <h3>Configurações do Menu</h3>
             <section class="meta-form">
+                <label>Titulo: <input type="text" id="titulo" placeholder="Titulo do menu"></label>
                 <label>Data Início: <input type="date" id="data-inicio"></label>
                 <label>Data Fim: <input type="date" id="data-fim"></label>
-                <label>Descrição: <input type="text" id="descricao" placeholder="Descrição curta do menu"></label>
                 <label>Publicar: <input type="checkbox" id="publicFlag"></label>
             </section>
 
-            <h3>Refeições da Semana</h3>
             <div id="gridDias" class="grid-dias"></div>
 
             <h3>Sugestões de Receitas</h3>
