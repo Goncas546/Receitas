@@ -96,12 +96,10 @@ window.onload = function () {
 
   async function carregarSugestoes() {
     try {
-      const API_KEY = '82872ab9b342448aa4c956cd2c4d7f28';
       const container = document.getElementById('recipe-suggestions');
-
       container.innerHTML = '<em>Carregando sugestões...</em>';
 
-      response = await fetch(`https://api.spoonacular.com/recipes/random?number=6&apiKey=${API_KEY}`);
+      response = await fetch('/api/sugestoes');
       if (!response.ok) throw new Error('Erro ao buscar receitas');
 
       const data = await response.json();

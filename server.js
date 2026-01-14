@@ -1,5 +1,6 @@
 const express = require('express');
 const path = require('path');
+require('dotenv').config();
 const { createFileStore } = require('./storage/fileStore');
 
 const app = express();
@@ -16,6 +17,28 @@ app.get('/', (req, res) => {
 // Criar o store (ficheiro data.json)
 const store = createFileStore({
   filePath: path.join(__dirname, 'public', 'data.json')
+});
+
+app.get('/api/sugestoes', async (req, res) => {
+    const apiKey = process.env.SPOONACULAR_API_KEY;
+    
+    if (!apiKey) {
+        return res.status(500).json({ error: 'API Key não configurada no servidor' });
+    }
+
+    try {
+        const response = await fetch(`https://api.spoonacular.com/recipes/random?number=6&apiKey=${apiKey}`);
+        
+        if (!response.ok) {
+            throw new Error(`Erro API externa: ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        res.json(data);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Falha ao buscar sugestões' });
+    }
 });
 
 // GET menus por email
