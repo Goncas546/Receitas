@@ -6,12 +6,76 @@ const { createFileStore } = require('./storage/fileStore');
 const app = express();
 const port = 3000;
 
-// Segurança básica de headers
 try {
   const helmet = require('helmet');
-  app.use(helmet());
+  app.use(helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        
+        // SCRIPTS: Google Identity precisa destes domínios
+        scriptSrc: [
+          "'self'",
+          'https://accounts.google.com',
+          'https://accounts.google.com/gsi/client',
+          'https://apis.google.com',
+          "'unsafe-inline'"
+        ],
+        scriptSrcAttr: ["'unsafe-inline'"],
+        
+        // STYLES: Google e CDNs externos
+        styleSrc: [
+          "'self'",
+          "'unsafe-inline'",
+          'https://cdnjs.cloudflare.com',
+          'https://fonts.googleapis.com',
+          'https://accounts.google.com'
+        ],
+        
+        // FONTS
+        fontSrc: [
+          "'self'", 
+          'https://fonts.gstatic.com', 
+          'https://cdnjs.cloudflare.com', 
+          'data:'
+        ],
+        
+        // IMAGENS
+        imgSrc: [
+          "'self'", 
+          'data:', 
+          'https://lh3.googleusercontent.com', // Avatares do Google
+          'https://img.spoonacular.com' // Imagens da Spoonacular
+        ],
+        
+        // CONEXÕES (AJAX/Fetch)
+        connectSrc: [
+          "'self'",
+          'https://accounts.google.com',
+          'https://accounts.google.com/gsi/',
+          'https://www.googleapis.com'
+        ],
+        
+        // IFRAMES
+        frameSrc: [
+          "'self'",
+          'https://accounts.google.com', // Permite a iframe do botão de login
+          'https://gsi.gstatic.com'      // Ocasionalmente necessário para assets do GSI
+        ],
+        
+        frameAncestors: ["'self'"],
+        
+        objectSrc: ["'none'"],
+        upgradeInsecureRequests: [],
+      }
+    },
+    referrerPolicy: {
+      policy: "strict-origin-when-cross-origin",
+    },
+    crossOriginOpenerPolicy: { policy: "same-origin-allow-popups" }
+  }));
 } catch (e) {
-  console.warn('Helmet não instalado — recomenda executar `npm install helmet` para melhores headers de segurança.');
+  console.warn('Helmet error:', e);
 }
 
 // Limitar tamanho do body para evitar payloads muito grandes
