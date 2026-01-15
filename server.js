@@ -185,6 +185,12 @@ function validateMenuPayload(body) {
   return errors;
 }
 
+app.get('/api/config', (req, res) => {
+  res.json({ 
+    clientId: process.env.GOOGLE_CLIENT_ID 
+  });
+});
+
 app.get('/api/sugestoes', async (req, res) => {
     const apiKey = process.env.SPOONACULAR_API_KEY;
     
