@@ -6,7 +6,16 @@ const { createFileStore } = require('./storage/fileStore');
 const app = express();
 const port = 3000;
 
-app.use(express.json());
+// Segurança básica de headers
+try {
+  const helmet = require('helmet');
+  app.use(helmet());
+} catch (e) {
+  console.warn('Helmet não instalado — recomenda executar `npm install helmet` para melhores headers de segurança.');
+}
+
+// Limitar tamanho do body para evitar payloads muito grandes
+app.use(express.json({ limit: '64kb' }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Página principal
@@ -18,6 +27,99 @@ app.get('/', (req, res) => {
 const store = createFileStore({
   filePath: path.join(__dirname, 'public', 'data.json')
 });
+
+// Validação do payload de menu
+function validateMenuPayload(body) {
+  const errors = [];
+  if (!body || typeof body !== 'object') {
+    errors.push('Corpo da requisição inválido');
+    return errors;
+  }
+
+  const emailRaw = body.email;
+  const menuSemanal = body.menuSemanal;
+  const tituloRaw = body.titulo;
+  const dataInicioRaw = (body['data-inicio'] || body.dataInicio);
+  const dataFimRaw = (body['data-fim'] || body.dataFim);
+  const email = (typeof emailRaw === 'string') ? emailRaw.trim() : '';
+  const titulo = (typeof tituloRaw === 'string') ? tituloRaw.trim() : '';
+  const dataInicio = (typeof dataInicioRaw === 'string') ? dataInicioRaw.trim() : '';
+  const dataFim = (typeof dataFimRaw === 'string') ? dataFimRaw.trim() : '';
+  const hasPublic = typeof body.public !== 'undefined';
+  if (!email) errors.push('email é obrigatório');
+  else if (typeof body.email !== 'string') errors.push('email deve ser uma string');
+  else {
+    // validação simples de email
+    const emailRe = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+    if (!emailRe.test(email)) errors.push('email com formato inválido');
+  }
+
+  if (!menuSemanal || typeof menuSemanal !== 'object') {
+    errors.push('menuSemanal é obrigatório e deve ser um object');
+  } else {
+    const expectedDays = ['segunda','terça','quarta','quinta','sexta','sábado','domingo'];
+    const keys = Object.keys(menuSemanal || {});
+    // Verificar presença de todos os dias esperados
+    expectedDays.forEach(d => {
+      if (!keys.includes(d)) errors.push(`menuSemanal: falta o dia '${d}'`);
+    });
+
+    // Se há chaves extras ou menos, reportamos, mas continuamos a validar os presentes
+    expectedDays.forEach((d) => {
+      const entry = menuSemanal[d];
+      if (!entry || typeof entry !== 'object') {
+        // já relatado acima se estiver ausente
+        return;
+      }
+
+      const almRaw = entry.almoco;
+      const janRaw = entry.jantar;
+
+      if (typeof almRaw !== 'string') {
+        errors.push(`campo 'almoco' em ${d} tem de ser texto`);
+      } else if (!almRaw.trim()) {
+        errors.push(`campo 'almoco' em ${d} é obrigatório`);
+      } else if (almRaw.length > 300) {
+        errors.push(`campo 'almoco' em ${d} excede comprimento máximo (300)`);
+      }
+
+      if (typeof janRaw !== 'string') {
+        errors.push(`campo 'jantar' em ${d} tem de ser texto`);
+      } else if (!janRaw.trim()) {
+        errors.push(`campo 'jantar' em ${d} é obrigatório`);
+      } else if (janRaw.length > 300) {
+        errors.push(`campo 'jantar' em ${d} excede comprimento máximo (300)`);
+      }
+    });
+  }
+
+  if (!titulo) errors.push('titulo é obrigatório');
+  else if (typeof body.titulo !== 'string') errors.push('titulo deve ser uma string');
+  else if (titulo.length > 200) errors.push('titulo excede comprimento máximo (200)');
+
+  if (!dataInicio) errors.push('data-inicio é obrigatória');
+  else if (typeof (body['data-inicio'] || body.dataInicio) !== 'string') errors.push('data-inicio deve ser uma string YYYY-MM-DD');
+  if (!dataFim) errors.push('data-fim é obrigatória');
+  else if (typeof (body['data-fim'] || body.dataFim) !== 'string') errors.push('data-fim deve ser uma string YYYY-MM-DD');
+
+  if (dataInicio && dataFim) {
+    const start = new Date(dataInicio + 'T00:00:00');
+    const end = new Date(dataFim + 'T00:00:00');
+    const today = new Date(); today.setHours(0,0,0,0);
+    if (isNaN(start.getTime()) || isNaN(end.getTime())) {
+      errors.push('formato de data inválido');
+    } else {
+      if (start < today) errors.push('data-inicio não pode ser anterior a hoje');
+      if (end < start) errors.push('data-fim não pode ser anterior à data-inicio');
+      const diffDays = Math.round((end - start) / (1000 * 60 * 60 * 24));
+      if (diffDays < 7) errors.push('a diferença entre data-inicio e data-fim deve ser pelo menos 7 dias');
+    }
+  }
+  if (!hasPublic) errors.push('public (flag) é obrigatório (true/false)');
+  else if (typeof body.public !== 'boolean') errors.push('public deve ser boolean (true/false)');
+
+  return errors;
+}
 
 app.get('/api/sugestoes', async (req, res) => {
     const apiKey = process.env.SPOONACULAR_API_KEY;
@@ -57,15 +159,20 @@ app.get('/api/dados/:email', (req, res) => {
 app.post('/api/menu', async (req, res) => {
   try {
     const body = req.body || {};
+
+    console.warn('Recebido POST /api/menu com body:', body);
+
     const email = body.email;
     const menuSemanal = body.menuSemanal;
     const titulo = body.titulo || '';
     const dataInicio = body['data-inicio'] || body.dataInicio || '';
     const dataFim = body['data-fim'] || body.dataFim || '';
-    const isPublic = (body.public === true) || (body.public === 'true');
+    const isPublic = (body.public === true);
 
-    if (!email || !menuSemanal) {
-      return res.status(400).json({ error: 'Parâmetros inválidos (email e menuSemanal são obrigatórios)' });
+    // Validação completa do payload (todos os campos obrigatórios e formatos)
+    const payloadErrors = validateMenuPayload(body);
+    if (payloadErrors && payloadErrors.length) {
+      return res.status(400).json({ error: 'Payload inválido', details: payloadErrors });
     }
 
     const created = await store.createMenu({
@@ -94,10 +201,12 @@ app.put('/api/menu/:key', async (req, res) => {
     const titulo = body.titulo || '';
     const dataInicio = body['data-inicio'] || body.dataInicio || '';
     const dataFim = body['data-fim'] || body.dataFim || '';
-    const isPublic = (body.public === true) || (body.public === 'true');
+    const isPublic = (body.public === true);
 
-    if (!email || !menuSemanal) {
-      return res.status(400).json({ error: 'Parâmetros inválidos (email e menuSemanal são obrigatórios)' });
+    // Validação completa do payload (todos os campos obrigatórios e formatos)
+    const payloadErrors = validateMenuPayload(body);
+    if (payloadErrors && payloadErrors.length) {
+      return res.status(400).json({ error: 'Payload inválido', details: payloadErrors });
     }
 
     const updated = await store.updateMenu({
@@ -122,6 +231,23 @@ app.put('/api/menu/:key', async (req, res) => {
 app.delete('/api/menu/:key', async (req, res) => {
   try {
     const key = req.params.key;
+    // Verificar explicitamente se a chave existe antes de tentar apagar
+    const all = store._getAll && typeof store._getAll === 'function' ? store._getAll() : null;
+    if (!all || !all[key]) {
+      return res.status(404).json({ error: 'Menu não encontrado' });
+    }
+
+    // Validar autor (email) enviado no body
+    const body = req.body || {};
+    const requesterEmail = body.email;
+    if (!requesterEmail || typeof requesterEmail !== 'string') {
+      return res.status(400).json({ error: 'email do requerente é obrigatório no body' });
+    }
+
+    if (all[key].author !== requesterEmail) {
+      return res.status(403).json({ error: 'Sem permissão para apagar este menu' });
+    }
+
     const result = await store.deleteMenu(key);
     return res.json({ ok: true, deleted: result.deleted });
   } catch (e) {

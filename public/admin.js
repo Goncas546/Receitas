@@ -35,6 +35,51 @@ window.onload = function () {
   carregarDadosServidor();
   carregarSugestoes();
 
+  // --- Datepicker constraints: bloquear datas inválidas ---
+  const dataInicioEl = document.getElementById('data-inicio');
+  const dataFimEl = document.getElementById('data-fim');
+
+  function pad(n){ return n<10 ? '0'+n : ''+n; }
+  function formatDate(d){ return d.getFullYear() + '-' + pad(d.getMonth()+1) + '-' + pad(d.getDate()); }
+  function addDays(d, days){ const x = new Date(d); x.setDate(x.getDate() + days); return x; }
+
+  function updateDateConstraints(){
+    const today = new Date(); today.setHours(0,0,0,0);
+    if (dataInicioEl) dataInicioEl.min = formatDate(today);
+
+    let start = null;
+    if (dataInicioEl && dataInicioEl.value) start = new Date(dataInicioEl.value + 'T00:00:00');
+    const minEnd = start ? addDays(start, 7) : addDays(today, 7);
+    if (dataFimEl) {
+      dataFimEl.min = formatDate(minEnd);
+      if (!start) {
+        dataFimEl.value = '';
+      } else {
+        // se não existir valor definido, preencher automaticamente com min
+        if (!dataFimEl.value) {
+          dataFimEl.value = dataFimEl.min;
+        } else {
+          const curEnd = new Date(dataFimEl.value + 'T00:00:00');
+          const minEndDate = new Date(dataFimEl.min + 'T00:00:00');
+          if (curEnd < minEndDate) dataFimEl.value = dataFimEl.min;
+        }
+      }
+    }
+  }
+
+  if (dataInicioEl) dataInicioEl.addEventListener('change', () => {
+    updateDateConstraints();
+    if (dataInicioEl && dataInicioEl.value && dataFimEl) {
+      dataFimEl.value = dataFimEl.min;
+    } else if (dataFimEl) {
+      dataFimEl.value = '';
+    }
+  });
+  if (dataFimEl) dataFimEl.addEventListener('change', () => { /* manual change allowed, validation will catch issues */ });
+
+  // Inicializar constraints logo que os inputs existam
+  updateDateConstraints();
+
   // ===== VALIDAÇÃO OBRIGATÓRIA =====
   function validateFormOrAlert() {
     const missing = [];
@@ -58,6 +103,33 @@ window.onload = function () {
       alert('❌ Não é possível gravar. Faltam preencher:\n\n- ' + missing.join('\n- '));
       return false;
     }
+    
+    // Validações de datas adicionais:
+    // - dataInicio não pode ser anterior a hoje
+    // - dataFim não pode ser anterior a dataInicio
+    // - diferença entre dataFim e dataInicio tem de ser pelo menos 7 dias
+    if (dataInicio && dataFim) {
+      const start = new Date(dataInicio + 'T00:00:00');
+      const end = new Date(dataFim + 'T00:00:00');
+      const today = new Date();
+      today.setHours(0,0,0,0);
+
+      if (start < today) {
+        alert('❌ A Data de Início não pode ser anterior a hoje.');
+        return false;
+      }
+
+      if (end < start) {
+        alert('❌ A Data de Fim não pode ser anterior à Data de Início.');
+        return false;
+      }
+
+      const diffDays = Math.round((end - start) / (1000 * 60 * 60 * 24));
+      if (diffDays < 7) {
+        alert('❌ A diferença entre Data Início e Data Fim tem de ser, no mínimo, 7 dias (um menu semanal).');
+        return false;
+      }
+    }
     return true;
   }
 
@@ -75,6 +147,8 @@ window.onload = function () {
 
     // NOVO: ao limpar, volta a modo CREATE
     currentEditingKey = null;
+    // Atualiza constraints para reflectir o estado (desactivar data-fim)
+    if (typeof updateDateConstraints === 'function') updateDateConstraints();
   }
 
   // --- 2. GERAR HTML DOS DIAS ---
@@ -166,10 +240,11 @@ window.onload = function () {
         menusList = dados.menus;
 
           existingDiv.innerHTML = menusList.map(m => {
-          // 1. Define o título (Tenta descrição -> Tenta título -> Fallback)
-          const nomeMenu = (m.menu && m.menu.descricao) 
+          // 1. Define o título (Tenta descrição -> Tenta título -> Fallback) e escapa para evitar XSS
+          const nomeMenuRaw = (m.menu && m.menu.descricao) 
               ? m.menu.descricao 
               : (m.menu && m.menu.titulo ? m.menu.titulo : 'Menu Sem Nome');
+          const nomeMenu = escapeHtml(nomeMenuRaw);
 
           return `
             <div id="item-${m.key}" class="existing-item" style="margin-bottom:6px">
@@ -198,7 +273,10 @@ window.onload = function () {
   // Carrega um menu específico -> entra em modo UPDATE
   function carregarMenu(key) {
     const item = menusList.find(m => m.key === key);
-    if (!item) return;
+    if (!item) {
+      console.error('Menu não encontrado para key:', key);
+      return;
+    }
 
     document.getElementById('new-menu-btn').hidden = false;
     document.getElementById('btn-salvar').innerHTML = '<i class="fa-solid fa-floppy-disk"></i> Atualizar Menu';
@@ -223,14 +301,28 @@ window.onload = function () {
         }
       });
     }
+    // Atualizar constraints para activar/preencher data-fim se necessário
+    if (typeof updateDateConstraints === 'function') updateDateConstraints();
   }
 
   // Apagar um menu
   async function apagarMenu(key) {
+    const item = menusList.find(m => m.key === key);
+
+    if (!item) {
+      console.error('Menu não encontrado para key:', key);
+      return;
+    }
+
     if (!confirm('Tem a certeza que quer apagar este menu?')) return;
 
     try {
-      const resposta = await fetch(`/api/menu/${encodeURIComponent(key)}`, { method: 'DELETE' });
+      const email = sessionStorage.getItem('usuarioEmail');
+      const resposta = await fetch(`/api/menu/${encodeURIComponent(key)}`, { 
+        method: 'DELETE', 
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email })
+      });
 
       if (resposta.ok) {
         menusList = menusList.filter(m => m.key !== key);
