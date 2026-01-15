@@ -82,6 +82,9 @@ try {
 app.use(express.json({ limit: '64kb' }));
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Evita o erro 404 do favicon
+app.get('/favicon.ico', (req, res) => res.status(204).end());
+
 // Página principal
 app.get('/', (req, res) => {
   return res.sendFile(path.join(__dirname, 'public', 'index.html'));
